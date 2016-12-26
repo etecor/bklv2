@@ -1,0 +1,33 @@
+# bklv2
+bklv2 is a python library for [Backlog API version 2](http://developer.nulab-inc.com/ja/docs/backlog).
+
+## Install
+~~~~
+$ pip install bklv2
+~~~~
+
+## How to use
+~~~~python
+import bklv2
+
+# make object.
+bklv2api = bklv2.api( hostname="https://<spacename>.backlog.jp", apikey="apikey" )
+
+# API method
+# return : dict
+prj = bklv2api.addProject( name = "testproject",
+                           key = "TESTPROJECT",
+                           chartEnabled = False,
+                           subtaskingEnabled = False,
+                           textFormattingRule = "markdown" )
+
+print( type(prj) )          # >> <class 'dict'>
+print( prj["projectKey"] )  # >> TESTPROJECT
+
+# API method ( file-downloader )
+# return : output file path
+fp = bklv2api.getProjectIcon( projectIdOrKey=prj["id"]) )
+
+print( type(fp) )           # >> <class 'str'>
+print( fp )                 # >> ./space_img.png
+~~~~
