@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os
 import io
 import re
@@ -12,19 +14,26 @@ def read(*names, **kwargs):
 
 
 def find_version(*file_paths):
-    version_file = read(*file_paths)
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
-                              version_file, re.M)
-    if version_match:
-        return version_match.group(1)
+    f = read(*file_paths)
+    m = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", f, re.M)
+    if m:
+        return m.group(1)
     raise RuntimeError("Unable to find version string.")
+
+
+def find_author(*file_paths):
+    f = read(*file_paths)
+    m = re.search(r"^__author__ = ['\"]([^'\"]*)['\"]", f, re.M)
+    if m:
+        return m.group(1)
+    raise RuntimeError("Unable to find author string.")
 
 
 setup(	name="bklv2",
         version=find_version( "bklv2", "__init__.py" ),
         url="https://github.com/etecor/bklv2",
         description="Backlog API v2 library",
-        author="etecor",
+        author=find_author( "bklv2", "__init__.py" ),
         license="MIT",
         packages=["bklv2"],
         install_requires=["rfc6266", "requests"],

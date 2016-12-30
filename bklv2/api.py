@@ -1,4 +1,4 @@
-# coding: UTF-8
+# -*- coding: utf-8 -*-
 
 import datetime
 import shutil
@@ -62,6 +62,9 @@ def _dicset( dic, k, w, tuples ):
 
 
 class api( object ):
+    """
+    Backlog API version 2 wrapper
+    """
 
     def __init__( self, hostname, apikey ):
         """
@@ -964,8 +967,8 @@ class api( object ):
         return self._api_return(
             requests.delete( url, params = params ) )
 
-
-    def getSharedfiles( self, projectIdOrKey, path,
+    def getSharedfiles( self, projectIdOrKey,
+                        path = "",
                         order = None,
                         offset = None,
                         count = None ):
@@ -1289,7 +1292,9 @@ class api( object ):
             requests.get( url, params = params ) )
 
 
-    def getIssueAttachment( self, issueIdOrKey, attachmentId ):
+    def getIssueAttachment( self, issueIdOrKey, attachmentId,
+                            output = "path",
+                            dirpath = "." ):
         """
             https://developer.nulab-inc.com/docs/backlog/api/2/get-issue-attachment
         """
@@ -1298,8 +1303,9 @@ class api( object ):
                              "/attachments/" + str( attachmentId ) )
 
         return self._api_return(
-            requests.get( url, params = params ) )
-
+            requests.get( url, params = params, stream = True ),
+            output = output,
+            dirpath = dirpath )
 
     def deleteIssueAttachment( self, issueIdOrKey, attachmentId ):
         """
@@ -1469,7 +1475,9 @@ class api( object ):
             requests.post( url, params = params, data = data ) )
 
 
-    def getWikiAttachment( self, wikiId, attachmentId ):
+    def getWikiAttachment( self, wikiId, attachmentId,
+                           output = "path",
+                           dirpath = "." ):
         """
             https://developer.nulab-inc.com/docs/backlog/api/2/get-wiki-attachment
         """
@@ -1478,8 +1486,9 @@ class api( object ):
                              "/attachments/" + str( attachmentId ) )
 
         return self._api_return(
-            requests.get( url, params = params ) )
-
+            requests.get( url, params = params, stream = True ),
+            output = output,
+            dirpath = dirpath )
 
     def deleteWikiAttachment( self, wikiId, attachmentId ):
         """
