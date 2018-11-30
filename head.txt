@@ -1,5 +1,6 @@
 # bklv2
-bklv2 is a python library for [Backlog API version 2](http://developer.nulab-inc.com/ja/docs/backlog).
+bklv2 is a python library for [Backlog API version 2](https://developer.nulab-inc.com/docs/backlog/)
+[(JP)](http://developer.nulab-inc.com/ja/docs/backlog).
 
 ## Install
 ~~~~
